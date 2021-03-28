@@ -1,8 +1,9 @@
 import React from 'react';
 import Link from 'next/link'
 
-import Box from '@material-ui/core/Box';
 import Divider from '@material-ui/core/Divider';
+import Box from '@material-ui/core/Box';
+import Container from '@material-ui/core/Container';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -10,8 +11,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { fade } from '@material-ui/core/styles/colorManipulator';
 
 const styles = theme => ({
-  root: {
+  listContainer: {
     width: '100%',
+    padding: 0,
     backgroundColor: fade(theme.palette.background.paper, 0.8),
   },
   itemContainer: {
@@ -45,11 +47,9 @@ export class StarshipList extends React.Component {
     );
 
     return (
-      <div className={classes.root}>
-        <List component="nav" aria-label="main mailbox folders">
-          {listItems}
-        </List>
-      </div>
+      <List disablePadding component="nav">
+        {listItems}
+      </List>
     );
 
   }
