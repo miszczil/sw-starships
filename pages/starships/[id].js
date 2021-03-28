@@ -1,34 +1,42 @@
 import Layout from '../../components/Layout'
 import Head from 'next/head'
 import Link from 'next/link'
+import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import Button from '@material-ui/core/Button';
-import Typography from '@material-ui/core/Typography';
-
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+import { makeStyles } from '@material-ui/core/styles';
 
 import { getAllStarshipIds, getStarshipData } from '../../lib/starships'
 
-// const useStyles = makeStyles({
-//   button: {
-//     background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-//     border: 0,
-//     borderRadius: 3,
-//     boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
-//     color: 'white',
-//     height: 48,
-//     padding: '0 30px',
-//   },
-// });
+const useStyles = makeStyles({
+  backButton: {
+    alignSelf: "start",
+    marginBottom: 16
+  },
+  card: {
+    display: "flex",
+    flexDirection: "column"
+  },
+  cardContent: {
+    display: "flex",
+    flexDirection: "column",
+    minHeight: 0,
+    boxSizing: "border-box"
+  },
+  tableContainer: {
+    marginTop: 16
+  }
+});
 
 export default function Starship({ starshipData }) {
+  const classes = useStyles();
 
   const rows = [
     "name",
@@ -53,28 +61,25 @@ export default function Starship({ starshipData }) {
       </Head>
 
       <Link href="/">
-        <Button>← Back to list</Button>
+        <Button className={classes.backButton}>← Back to list</Button>
       </Link>
 
-      <Card>
-        <CardContent>
+      <Card className={classes.cardContent}>
+        <CardContent className={classes.cardContent}>
           <Typography color="textSecondary" gutterBottom>
-            { starshipData.model }
+            {starshipData.model}
           </Typography>
           <Typography variant="h5" component="h2">
-            { starshipData.name }
+            {starshipData.name}
           </Typography>
-          <Typography variant="caption" color="textSecondary">
-            <b>Cost:</b> { starshipData.cost_in_credits }{" "}
-            { starshipData.cost_in_credits !== "unknown" && "GC" }
-          </Typography>
-          <TableContainer component={Paper}>
+
+          <TableContainer className={classes.tableContainer}>
             <Table stickyHeader>
               <TableBody>
                 {rows.map((row) => (
                   <TableRow key={row}>
-                    <TableCell component="th" align="right" scope="row" fontWeight="fontWeightBold">
-                      {row}
+                    <TableCell component="th" align="right" fontWeight="fontWeightBold">
+                      <strong>{row.replace(/_/g, " ")}</strong>
                     </TableCell>
                     <TableCell>{starshipData[row]}</TableCell>
                   </TableRow>

@@ -1,18 +1,22 @@
-import React from 'react';
 import Box from '@material-ui/core/Box';
-import Link from '@material-ui/core/Link';
+import Button from '@material-ui/core/Button';
 import FormControl from '@material-ui/core/FormControl';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
-import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 
-
 const useStyles = makeStyles((theme) => ({
-  formControl: {
-    minWidth: 144,
+  box: {
+    display: "flex"
   },
+  formControl: {
+    minWidth: 144
+  },
+  resetButton: {
+    marginLeft: 8,
+    alignSelf: "center"
+  }
 }));
 
 export default function FilmFilter(props) {
@@ -28,7 +32,7 @@ export default function FilmFilter(props) {
   }
 
   return (
-    <Box>
+    <Box className={classes.box}>
       <FormControl variant="outlined" className={classes.formControl}>
         <InputLabel id="film-filter-label">Filter by film</InputLabel>
         <Select
@@ -42,14 +46,14 @@ export default function FilmFilter(props) {
             <em>None</em>
           </MenuItem>
           { props.films.map(film =>
-              (<MenuItem value={film.url}>{film.title}</MenuItem>)
+              (<MenuItem key={film.url} value={film.url}>{film.title}</MenuItem>)
             )
           }
         </Select>
       </FormControl>
-      <Typography>
-      <Link href="#" onClick={handleReset}>Reset filter</Link>
-      </Typography>
+      { props.filter &&
+        <Button className={classes.resetButton} color="primary" onClick={handleReset}>Reset filter</Button>
+      }
     </Box>
   )
 }

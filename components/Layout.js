@@ -8,14 +8,16 @@ import { fade } from '@material-ui/core/styles/colorManipulator';
 const useStyles = makeStyles(theme => ({
     mainContainer: {
       backgroundColor: fade(theme.palette.background.paper, 0.8),
-      padding: "24px",
+      padding: 24,
+      maxHeight: "100%",
+      display: "flex",
+      flexDirection: "column",
     }
   })
 );
 
 const styles = {
     layoutBox: {
-        // backgroundImage: `url(${Image})`
         backgroundImage: `url(${"/background.jpg"})`,
         backgroundPosition: "center",
         backgroundRepeat: "no-repeat",
